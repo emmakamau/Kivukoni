@@ -1,0 +1,149 @@
+.body {
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-primary {
+  background-color: #03045e;
+  padding: 0.2em;
+}
+
+/* Styling for the base template - Navbar*/
+.logo-img {
+  height: 5rem;
+  width: 5rem;
+}
+
+/* Styling for the homepage*/
+.hmpg-gallery {
+  margin-top: 0.5rem;
+}
+
+.hmpg-title {
+  text-align: center;
+  font-weight: bolder;
+}
+
+.hmpg-img {
+  height: 30rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.hmpg-txt {
+  background-color: #03045e;
+  color: white;
+  text-align: center;
+  padding: 1em;
+}
+
+.hmpg-gallery-card {
+  padding: 1rem;
+  margin: 0.8rem;
+  height: 25rem;
+  width: 23rem;
+  text-align: center;
+}
+
+.hmpg-gallery-img {
+  height: 15rem;
+  width: 20rem;
+}
+/* Styling for the contact page*/
+/* Styling for the about us page*/
+/* Styling for the property list page*/
+
+.property-card {
+  flex-direction: row;
+  height: 18rem;
+  padding: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.property-img {
+  width: 100%;
+  height: 100%;
+  padding: .2em;
+}
+
+.property-title {
+  font-weight: bolder;
+  color: #03045e;
+}
+
+.property-desc {
+    display: block;/* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.8em;
+}
+
+.filter-form{
+    padding: 1rem;
+    margin: 0.5rem;
+    background-color: #03045e;
+    color: white;
+    text-align: center;
+}
+
+.map-item{
+    height: 20rem;
+}
+
+/* Styling for the property page individual*/
+
+.property-img-page {
+  width: 80%;
+  height: 60%;
+}
+
+.property-item-page {
+  padding: 5rem;
+}
+
+/*Styling for Footer*/
+
+.footer {
+  text-align: center;
+  list-style-type: none;
+  margin-top: 1rem;
+  padding: 0;
+  overflow: hidden;
+  background-color: #90e0ef;
+  width: 100%;
+}
+
+.footer-img {
+  margin-top: 1rem;
+  width: 5rem;
+  height: 5rem;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  display: inline-block;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+.icons {
+  width: 5rem;
+  height: 5rem;
+}
+
+/* Styling for the administrator page*/
+
+.admin-form{
+    margin: 1rem;
+    padding: 1rem;
+}

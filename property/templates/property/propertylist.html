@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid property-list">
+  <div class="container-fluid filter-form">
+    <form method="GET">
+      {% csrf_token %} {{ myFilter.form }}
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+  <div>
+    <h3>{{property_count}} property(ies) available in this region.</h3>
+  </div>
+
+  <!--Property listing displays all property unless filters are added-->
+  <div class="container-fluid row">
+    <div class="container map-item col-4">{{ myMap|safe}}</div>
+    <div class="container list-items col-8">
+      {% for property in property %}
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img
+              src="{{property.image.url}}"
+              class="card-img-top property-img"
+              alt="property-img"
+            />
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'propertyitem' property.pk %}"
+                  ><h5 class="card-title property-title">
+                    {{property.title}}
+                  </h5></a
+                >
+              </h5>
+              <p class="card-text">
+                {{property.location}}, {{property.region}}
+              </p>
+              <p class="card-text property-desc">{{property.description}}</p>
+              <p class="card-text">
+                <small class="text-muted">Status - {{property.status}}</small>
+              </p>
+              <a
+                href="{% url 'propertyitem' property.pk %}"
+                class="btn btn-primary"
+                >View more</a
+              >
+              <a href="#" class="btn btn-primary">Make Inquiry</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock%}

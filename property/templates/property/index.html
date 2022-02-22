@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container-fluid">
+  <div class="hm-pg">
+    <img src="static/homepage.jpeg" class="hmpg-img" alt="Responsive image" />
+  </div>
+  <div class="hmpg-txt">
+    <p>
+      Request a call back to discuss your dream home.
+      <button type="button" class="btn call-back-btn">Click here</button>
+    </p>
+  </div>
+  <div class="hmpg-gallery">
+    <h2 class="hmpg-title">Latest Property</h2>
+    <div class="row">
+        {% for property in property %}
+        <div class="card hmpg-gallery-card">
+            <img class="card-img-top hmpg-gallery-img" src="{{property.image.url}}" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title">{{property.title}}</h5>
+              <a href="#" class="btn btn-primary">View more</a>
+            </div>
+          </div>
+          {% endfor %}
+    </div>
+   
+  </div>
+  <div class="hmpg-txt">
+    <h2>Latest Properties - Location Map</h2>
+    <div>
+      {{ myMap|safe}}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

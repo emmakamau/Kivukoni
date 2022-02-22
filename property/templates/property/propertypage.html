@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid property-item-page">
+    <h1>{{property.title}}</h1>
+    <img
+        src="{{property.image.url}}"
+        class="card-img-top property-img-page"
+        alt="property-img-page"
+      />
+      <h2>Region - {{property.region}}</h2>
+      <h3>Location - {{property.location}}</h3>
+      <h4>Price - {{property.price}} {{property.currency}}</h4>
+      <p>{{property.description}}</p>
+      <p>{{ myMap|safe }}</p>
+</div>
+
+{% endblock %}
