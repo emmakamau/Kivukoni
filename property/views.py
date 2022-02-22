@@ -1,7 +1,8 @@
 from locale import currency
 from os import stat
 from pydoc import locate
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import *
 from .filters import *
 import folium
@@ -102,11 +103,17 @@ def propertylist(request):
     property = myFilter.qs
     property_count = property.count()
 
+    paginator = Paginator(property, 3) # Show 3 property items per page.
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     context = {
         'property': property,
         'myFilter': myFilter,
         'property_count': property_count,
         'myMap': myMap,
+        'page_obj':page_obj,
     }
     return render(request, 'property/propertylist.html', context=context)
 

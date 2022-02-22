@@ -18,7 +18,7 @@
             <img class="card-img-top hmpg-gallery-img" src="{{property.image.url}}" alt="Card image cap">
             <div class="card-body">
               <h5 class="card-title">{{property.title}}</h5>
-              <a href="#" class="btn btn-primary">View more</a>
+              <a href="{% url 'propertyitem' property.pk %}" class="btn btn-primary">View more</a>
             </div>
           </div>
           {% endfor %}
