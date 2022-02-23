@@ -4,7 +4,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
-
+class PropertyForm(ModelForm):
+    class Meta:
+        model = Property
+        fields = ['region','location','address','currency','price',
+        'title','description','status']
 
 '''
 properttype = models.ForeignKey('Propertytype',on_delete=models.SET_NULL, null=True)

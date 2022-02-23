@@ -5,6 +5,7 @@ import geocoder
 # Create your models here.
 class Propertytype(models.Model):
     name = models.CharField(max_length=255)
+    demoimage = models.ImageField(blank=False, null=False, upload_to='media', default=0)
 
     class Meta:
         verbose_name_plural = 'Property Type'
@@ -46,8 +47,8 @@ class Property(models.Model):
         ('Sold', 'Sold'),
         ('Reserved', 'Reserved'),
     )
-    properttype = models.ForeignKey('Propertytype',on_delete=models.SET_NULL, null=True)
-    image = models.ImageField(blank=False,null=False,upload_to='media')
+    propertytype = models.ForeignKey('Propertytype',on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(blank=False, null=False, upload_to='media', default=0)
     region = models.ForeignKey('Region',on_delete=models.SET_NULL, null=True)
     location = models.ForeignKey('Location',on_delete=models.SET_NULL, null=True)
     address = models.CharField(max_length=200, null=True)
@@ -70,3 +71,11 @@ class Property(models.Model):
     
     def __str__(self):
         return self.title
+
+
+class Images(models.Model):
+    image = models.ImageField(blank=False, null=False, upload_to='media')
+    property = models.ForeignKey('Property',on_delete=models.SET_NULL, null=True )
+
+    class Meta:
+        verbose_name_plural = 'Images'

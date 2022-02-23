@@ -1,8 +1,8 @@
-from locale import currency
-from os import stat
-from pydoc import locate
+
+from unicodedata import category
 from django.shortcuts import render, redirect
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
+from property.forms import *
 from .models import *
 from .filters import *
 import folium
@@ -15,8 +15,7 @@ def home(request):
 
     property = Property.objects.all().filter(status='Onsale')[:6]
     property_list = Property.objects.values_list('latitude', 'longitude')
-
-    myMap = folium.Map(zoom_start=10)
+    myMap = folium.Map(zoom_start=2, min_zoom=3)
 
     for i in property_list:
         folium.Marker(i).add_to(myMap)
@@ -32,57 +31,10 @@ def home(request):
 
 
 def administrator(request):
-
-    region = Region.objects.all()
-    currency = Currency.objects.all()
-    location = Location.objects.all()
-    propertytype = Propertytype.objects.all()
-    status = Property.objects.values_list('status').distinct()
-
-    if request.method == 'POST':
-        data = request.POST
-        images = request.FILES.getlist('images')
-        
-        if data['region'] != 'none':
-            if data['location'] != 'none':
-                if data['currency'] != 'none':
-                    if data['propertytype'] != 'none':
-                        if data['status'] != 'none':
-                            region = Region.objects.get(id=data['region'])
-                        location = Location.objects.get(id=data['location'])
-                    currency = Currency.objects.get(id=data['currency'])
-                propertytype = Propertytype.objects.get(id=data['propertytype'])
-            status = Property.objects.values.get(id=data['status'])
-        else:
-            currency = None
-            location = None
-            region = None
-            propertytype = None
-            status = None
-
-        for image in images:
-            Property.objects.create(
-                title=data['title'],
-                region=region,
-                location=location,
-                currency=currency,
-                propertytype = propertytype,
-                description=data['description'],
-                status=status,
-                address=data['address'],
-                price=data['price'],
-                image=image,
-            )
-            print(property)
-
-        return redirect('propertylist')
-
+    
+    
     context = {
-        'region': region,
-        'currency': currency,
-        'location': location,
-        'propertytype':propertytype,
-        'status':status,
+
     }
     return render(request, 'property/administrator.html', context)
 
@@ -92,7 +44,7 @@ def propertylist(request):
     property = Property.objects.all()
     property_list = Property.objects.values_list('latitude', 'longitude')
 
-    myMap = folium.Map(zoom_start=100)
+    myMap = folium.Map(zoom_start=1, min_zoom=2)
 
     for i in property_list:
         folium.Marker(i).add_to(myMap)
@@ -117,20 +69,32 @@ def propertylist(request):
     }
     return render(request, 'property/propertylist.html', context=context)
 
+def propertytype(request):
+
+    type = Propertytype.objects.all()
+    print(type)
+
+    context = {
+        'type':type,
+    }
+    return render(request, 'property/propertytype.html', context=context)
 
 def propertyitem(request, id):
-    property = Property.objects.get(id=id)
-    lat = property.latitude
-    lng = property.longitude
-    print(lat, lng)
+
+    property_obj = Property.objects.get(id=id)
+    image = Images.objects.filter(property=property_obj)
+
+    lat = property_obj.latitude
+    lng = property_obj.longitude
 
     myMap = folium.Map(location=[lat, lng], zoom_start=100)
     folium.Marker([lat, lng]).add_to(myMap)
     myMap = myMap._repr_html_()
 
     context = {
-        'property': property,
+        'property_obj': property_obj,
         'myMap': myMap,
+        'image': image
     }
     return render(request, 'property/propertypage.html', context=context)
 

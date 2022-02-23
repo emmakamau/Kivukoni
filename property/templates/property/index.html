@@ -13,21 +13,24 @@
   <div class="hmpg-gallery">
     <h2 class="hmpg-title">Latest Property</h2>
     <div class="row">
-        {% for property in property %}
-        <div class="card hmpg-gallery-card">
-            <img class="card-img-top hmpg-gallery-img" src="{{property.image.url}}" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">{{property.title}}</h5>
-              <a href="{% url 'propertyitem' property.pk %}" class="btn btn-primary">View more</a>
-            </div>
-          </div>
-          {% endfor %}
+      {% for property in property %}
+      <div class="card hmpg-gallery-card">
+        <div>
+          <img class="card-img-top hmpg-gallery-img" src="{{property.image.url}}" alt="Card image cap">
+        </div>
+
+        <div class="card-body">
+          <h5 class="card-title">{{property.property.title}}</h5>
+          <a href="{% url 'propertyitem' property.pk %}" class="btn btn-primary">View more</a>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-   
+
   </div>
   <div class="hmpg-txt">
     <h2>Latest Properties - Location Map</h2>
-    <div>
+    <div class="main-map">
       {{ myMap|safe}}
     </div>
   </div>

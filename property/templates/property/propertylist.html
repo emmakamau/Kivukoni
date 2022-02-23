@@ -3,36 +3,68 @@
 <div class="container-fluid property-list">
   <div class="container-fluid filter-form">
     <form method="GET">
-      {% csrf_token %} {{ myFilter.form }}
-      <button type="submit" class="btn btn-primary">Search</button>
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-sm-1.5">
+          <label>Type</label>
+          {{myFilter.form.propertytype}}
+        </div>
+        <div class="col-sm-1.5">
+          <label>Min-Amount</label>
+          {{myFilter.form.min_price}}
+        </div>
+        <div class="col-sm-1.5">
+          <label>Max-Amount</label>
+          {{myFilter.form.max_price}}
+        </div>
+        <div class="col-sm-1.5">
+          <label>Region</label>
+          {{myFilter.form.region}}
+        </div>
+        <div class="col-sm-1.5">
+          <label>Location</label>
+          {{myFilter.form.location}}
+        </div>
+        <div class="col-sm-1.5">
+          <label>Currency</label>
+          {{myFilter.form.currency}}
+        </div>
+        <div class="col-sm-1.5">
+          <label>Status</label>
+          {{myFilter.form.status}}
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </div>
+
     </form>
   </div>
-  <div>
+  <div class="item-count">
     <h3>{{property_count}} property(ies) available in this region.</h3>
   </div>
 
   <!--Property listing displays all property unless filters are added-->
   <div class="container-fluid row">
-    <div class="container map-item col-4">{{ myMap|safe}}</div>
-    <div class="container list-items col-8">
+    <!--Property listing -->
+    <div class="container-fluid list-items col-12">
       {% for property in page_obj %}
       <div class="card mb-3">
         <div class="row no-gutters">
           <div class="col-md-4">
-            <img
-              src="{{property.image.url}}"
-              class="card-img-top property-img"
-              alt="property-img"
-            />
+            <img src="{{property.image.url}}" class="card-img-top property-img" alt="property-img" />
           </div>
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{% url 'propertyitem' property.pk %}"
-                  ><h5 class="card-title property-title">
+                <a href="{% url 'propertyitem' property.pk %}">
+                  <h5 class="card-title property-title">
                     {{property.title}}
-                  </h5></a
-                >
+                  </h5>
+                </a>
               </h5>
               <p class="card-text">
                 {{property.location}}, {{property.region}}
@@ -41,11 +73,7 @@
               <p class="card-text">
                 <small class="text-muted">Status - {{property.status}}</small>
               </p>
-              <a
-                href="{% url 'propertyitem' property.pk %}"
-                class="btn btn-primary"
-                >View more</a
-              >
+              <a href="{% url 'propertyitem' property.pk %}" class="btn btn-primary">View more</a>
               <a href="#" class="btn btn-primary">Make Inquiry</a>
             </div>
           </div>
@@ -55,21 +83,21 @@
     </div>
     <div class="pagination">
       <span class="step-links">
-          {% if page_obj.has_previous %}
-              <a href="?page=1">&laquo; first</a>
-              <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-          {% endif %}
-  
-          <span class="current">
-              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-          </span>
-  
-          {% if page_obj.has_next %}
-              <a href="?page={{ page_obj.next_page_number }}">next</a>
-              <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
       </span>
-  </div>
+    </div>
   </div>
 </div>
 

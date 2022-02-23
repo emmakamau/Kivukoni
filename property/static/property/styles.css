@@ -50,8 +50,21 @@
   height: 15rem;
   width: 20rem;
 }
+
+
 /* Styling for the contact page*/
 /* Styling for the about us page*/
+
+/* Styling for the property type page*/
+.type-card{
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.type-page{
+  padding: 2rem;
+}
+
 /* Styling for the property list page*/
 
 .property-card {
@@ -89,19 +102,52 @@
     text-align: center;
 }
 
+.filter-item{
+  width: 20rem;
+}
+
+.item-count{
+  padding: 0rem;
+  text-align: center;
+}
+
 .map-item{
-    height: 20rem;
+    height: 100%;
+    width: 100%;
 }
 
 /* Styling for the property page individual*/
 
-.property-img-page {
-  width: 80%;
-  height: 60%;
+.carousel{
+  width: 100%;
+  height:30rem;
+}
+
+.property-img-page{
+  width: 100%;
+  height: 30rem;
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon{
+  background-color: #03045e;
+}
+
+.item-title{
+  color: #03045e;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.item-region{
+  font-weight: bolder;
 }
 
 .property-item-page {
-  padding: 5rem;
+  padding: 1rem;
+}
+
+.item-page{
+  padding: 1rem 6rem;
 }
 
 /*Styling for Footer*/
@@ -144,6 +190,5 @@ li {
 /* Styling for the administrator page*/
 
 .admin-form{
-    margin: 1rem;
     padding: 1rem;
 }

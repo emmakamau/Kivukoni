@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content%}
+
+<div class="row type-page">
+    {% for i in type%}
+    <div class="col-4">
+        <div class="card type-card">
+            <img class="card-img-top" src="{{ type.demoimage.url }}" alt="Card image cap">
+            <div class="card-body">
+                <a ><h5 class="card-title">{{type.name}}</h5></a>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+
+{% endblock%}
