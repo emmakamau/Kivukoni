@@ -61,10 +61,12 @@ class Property(models.Model):
     latitude = models.FloatField(default=0, null=True, blank=True)
     longitude = models.FloatField(default=0, null=True, blank=True)
 
+    '''
     def save(self, *args, **kwargs):
         self.latitude = geocoder.osm(self.address).lat
         self.longitude = geocoder.osm(self.address).lng
         return super().save(*args, **kwargs)
+    '''
 
     def __str__(self):
         return self.title
