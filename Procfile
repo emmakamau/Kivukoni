@@ -1,0 +1,1 @@
+web: gunicorn kivukoni.wsgi --log-file -
