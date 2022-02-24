@@ -1,6 +1,6 @@
-
-from unicodedata import category
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator
 from property.forms import *
 from .models import *
@@ -22,26 +22,23 @@ def home(request):
 
     myMap = myMap._repr_html_()
 
-
     context = {
         'property': property,
-        'myMap':myMap,
+        'myMap': myMap,
     }
     return render(request, 'property/index.html', context=context)
 
 
-def administrator(request):
-    
-    
-    context = {
-
-    }
-    return render(request, 'property/administrator.html', context)
-
-
 def propertylist(request):
 
-    property = Property.objects.all()
+    type = request.GET.get('type')
+    region = request.GET.get('region')
+
+    if type == None:
+        property = Property.objects.all().order_by('status')
+    else:
+        property = Property.objects.all().filter(propertytype__name=type)
+
     property_list = Property.objects.values_list('latitude', 'longitude')
 
     myMap = folium.Map(zoom_start=1, min_zoom=2)
@@ -55,7 +52,7 @@ def propertylist(request):
     property = myFilter.qs
     property_count = property.count()
 
-    paginator = Paginator(property, 3) # Show 3 property items per page.
+    paginator = Paginator(property, 3)  # Show 3 property items per page.
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -65,19 +62,20 @@ def propertylist(request):
         'myFilter': myFilter,
         'property_count': property_count,
         'myMap': myMap,
-        'page_obj':page_obj,
+        'page_obj': page_obj,
     }
     return render(request, 'property/propertylist.html', context=context)
+
 
 def propertytype(request):
 
     type = Propertytype.objects.all()
-    print(type)
 
     context = {
-        'type':type,
+        'type': type,
     }
     return render(request, 'property/propertytype.html', context=context)
+
 
 def propertyitem(request, id):
 
@@ -99,10 +97,27 @@ def propertyitem(request, id):
     return render(request, 'property/propertypage.html', context=context)
 
 
-def regionfilter(request):
-    property = Property.objects.all().filter()
+def contactus(request):
 
-    context = {
-        'property': property,
-    }
-    return render(request, 'property/propertylist.html', context=context)
+    if request.method == 'POST':
+        name = request.POST.get('user-name')
+        email = request.POST.get('email')
+        msg = request.POST.get('message')
+
+        print(name,email,msg)
+
+        from_email = email
+        recipient_list = 'emmaculatewkamau@gmail.com'
+        subject = 'Enquiry'
+        greetings = 'Dear sir,\n\n'
+        closing = 'Thank you.\n'
+        message = greetings+msg+'\n\n'+closing+name
+
+        try:
+            send_mail(subject, message, from_email, [recipient_list])
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
+        return redirect('home')
+
+    context={}
+    return render(request, 'property/contactus.html', context=context)

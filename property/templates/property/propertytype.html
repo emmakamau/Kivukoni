@@ -2,16 +2,20 @@
 {% block content%}
 
 <div class="row type-page">
-    {% for i in type%}
-    <div class="col-4">
+    {% for type in type%}
+    <div class="col-md-4">
         <div class="card type-card">
-            <img class="card-img-top" src="{{ type.demoimage.url }}" alt="Card image cap">
+            <a href="{% url 'propertylist' %}?type={{type.name}}">
+                <img class="card-img-top type-img" src="{{ type.demoimage.url }}" alt="Card image cap">
+            </a>
             <div class="card-body">
-                <a ><h5 class="card-title">{{type.name}}</h5></a>
+                <a href="{% url 'propertylist' %}?type={{type.name}}" class="type-link">
+                    <h5 class="card-title">{{type.name}}</h5>
+                </a>
             </div>
         </div>
     </div>
-    {%endfor%}
+    {% endfor %}
 </div>
 
 {% endblock%}

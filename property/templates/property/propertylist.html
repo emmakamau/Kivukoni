@@ -44,7 +44,7 @@
     </form>
   </div>
   <div class="item-count">
-    <h3>{{property_count}} property(ies) available in this region.</h3>
+    <h3>{{property_count}} property(ies) available.</h3>
   </div>
 
   <!--Property listing displays all property unless filters are added-->
@@ -52,7 +52,7 @@
     <!--Property listing -->
     <div class="container-fluid list-items col-12">
       {% for property in page_obj %}
-      <div class="card mb-3">
+      <div class="card mb-3 property-card ">
         <div class="row no-gutters">
           <div class="col-md-4">
             <img src="{{property.image.url}}" class="card-img-top property-img" alt="property-img" />

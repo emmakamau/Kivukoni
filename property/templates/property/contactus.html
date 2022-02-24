@@ -1,0 +1,48 @@
+{% extends "base.html"%}
+{% block content %}
+<div>
+    <h2 class="hmpg-title">CONTACT US</h2>
+</div>
+<div class="row contact-form">
+
+    <div class="col-6">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Name</label>
+                <input type="text" name="user-name" class="form-control" id="exampleFormControlInput1"
+                    placeholder="Jane Doe">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                    placeholder="janedoe@example.com">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"
+                    placeholder="Enter your message here."></textarea>
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-6 contact-me">
+        <div>
+            <div class="mb-3 contact-txt">
+                <h3>REACH US THROUGH</h3>
+            </div>
+            <div class="mb-3 contact-txt">
+                <p>Phone Number: +254 729 521 672</p>
+            </div>
+            <div class="mb-3 contact-txt">
+                <p>Email address: jackson.mwangi@gmail.com</p>
+            </div>
+            <div class="mb-3 contact-txt">
+                <p>Location: Sabaki Center, 1st floor Malindi</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
