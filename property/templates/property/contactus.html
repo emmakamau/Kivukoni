@@ -10,17 +10,17 @@
             {% csrf_token %}
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Name</label>
-                <input type="text" name="user-name" class="form-control" id="exampleFormControlInput1"
+                <input type="text" name="user-name" required class="form-control" id="exampleFormControlInput1"
                     placeholder="Jane Doe">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                <input type="email" name="email" required class="form-control" id="exampleFormControlInput1"
                     placeholder="janedoe@example.com">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Message</label>
-                <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"
+                <textarea class="form-control" required name="message" id="exampleFormControlTextarea1" rows="3"
                     placeholder="Enter your message here."></textarea>
             </div>
             <div class="mb-3">
