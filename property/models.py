@@ -58,8 +58,8 @@ class Property(models.Model):
     description = models.TextField(max_length=10000)
     uploaddate = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=50, null=True, choices=STATUS)
-    latitude = models.FloatField(default=0, null=True)
-    longitude = models.FloatField(default=0, null=True)
+    latitude = models.FloatField(default=0, null=True, blank=True)
+    longitude = models.FloatField(default=0, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'Property Log'
