@@ -9,7 +9,7 @@ charset-normalizer==2.0.12
 click==8.0.3
 decorator==5.1.1
 dj-database-url==0.5.0
-Django==3.2.12 #3.2.12
+Django==3.2.12
 django-bootstrap-v5==1.0.11
 django-cors-headers==3.11.0
 django-filter==21.1
@@ -23,9 +23,9 @@ idna==3.3
 Jinja2==3.0.3
 jmespath==0.10.0
 MarkupSafe==2.0.1
-numpy==1.21.5 #1.21.5
+numpy==1.21.5
 Pillow==9.0.1
-psycopg==3.0.9
+psycopg2-binary==2.9.3
 python-dateutil==2.8.2
 pytz==2021.3
 ratelim==0.1.6
