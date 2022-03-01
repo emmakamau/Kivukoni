@@ -1,0 +1,24 @@
+{% extends "admin-base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <h2>Location</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <select name="region" class="form-control">
+                <option value='none'>Select a status...</option>
+
+                {% for region in region %}
+                <option value='{{region.id}}'>{{region.name}}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="location" class="form-control" placeholder="Location e.g Kilifi">
+            <button type='submit' class="btn btn-primary m-3">Submit</button>
+    </div>
+    </form>
+    <div class="col-3"></div>
+</div>
+
+{% endblock%}

@@ -1,7 +1,12 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.core.paginator import Paginator
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .decorators import unauthenticated_user
 from property.forms import *
 from .models import *
 from .filters import *
@@ -28,6 +33,125 @@ def home(request):
     }
     return render(request, 'property/index.html', context=context)
 
+@unauthenticated_user
+def loginuser(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('administrator')
+        else:
+            messages.info(request, "Username or Password is incorrect")
+            
+    context = {}
+    return render (request, 'property/login.html', context=context)
+
+@login_required
+def logoutuser(request):
+    logout(request)
+    return render(request,'property/index.html',context=context)
+
+@login_required
+def administrator(request):
+    property_type = Propertytype.objects.all()
+    regions = Region.objects.all()
+    location = Location.objects.all()
+    currency = Currency.objects.all()
+    property = Property.objects.all()
+
+
+    context = {
+        'property_type':property_type,
+        'regions':regions,
+        'location':location,
+        'currency':currency,
+        'property':property,
+    }
+
+    return render(request,'property/admin.html',context=context)
+
+@login_required
+def admin_property_type(request):
+    context={}
+
+    return render(request,'property/admin-propertytype.html', context=context)
+
+@login_required
+def admin_images(request):
+   
+    property=Property.objects.all()
+
+    if request.method == 'POST':
+        data = request.POST
+        images = request.FILES.getlist('images')
+        if data['property'] != 'none':
+            property = Property.objects.get(id=data['property'])
+        print(images, property)
+
+        for image in images:
+            images = Images.objects.create(
+                property=property,
+                image=image
+            )
+            return redirect('home')
+
+    context={'property':property}
+
+    return render(request,'property/admin-images.html', context=context)
+
+@login_required
+def admin_currency(request):
+    if request.method == 'POST':
+        currency = request.POST.get('currency')
+
+        Currency.objects.create(
+            name=currency
+        )
+        return redirect('administrator')
+
+    context={}
+
+    return render(request,'property/admin-currency.html', context=context)
+
+@login_required
+def admin_region(request):
+    if request.method == 'POST':
+        region = request.POST.get('region')
+
+        Region.objects.create(
+            name=region
+        )
+        return redirect('administrator')
+    context={}
+
+    return render(request,'property/admin-region.html',context=context)
+
+@login_required
+def admin_location(request):
+    
+    region = Region.objects.all()
+
+    if request.method == 'POST':
+        data = request.POST
+        location = request.POST.get('location')
+        if data['region'] != 'none':
+            region = Region.objects.get(id=data['region'])
+
+            Location.objects.create(
+                name=location,
+                region=region
+            )
+            return redirect('administrator')
+        
+    context={
+        'region': region,
+    }
+
+    return render(request,'property/admin-location.html',context=context)
 
 def propertylist(request):
 

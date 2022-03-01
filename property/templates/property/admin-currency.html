@@ -1,0 +1,19 @@
+{% extends "admin-base.html" %}
+{% block content %}
+
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <h2>Currency</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="currency" class="form-control" placeholder="Currency e.g KSH"
+                style="text-transform:uppercase">
+            <button type='submit' class="btn btn-primary m-3">Submit</button>
+        </form>
+    </div>
+    <div class="col-3"></div>
+</div>
+
+
+{% endblock%}

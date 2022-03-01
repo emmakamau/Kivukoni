@@ -1,0 +1,91 @@
+{% extends "admin-base.html" %}
+{% block content %}
+
+<div class="container-fluid">
+    <form method="POST" class="admin-page">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12">
+                <input type="text" name="property-title" class="form-control property-title" id="property-title"
+                    placeholder="Property title">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <select name="category" class="form-control">
+                    <option value='none'>Select a property type...</option>
+
+                    {% for property_type in property_type %}
+                    <option value='{{property_type.id}}'>{{property_type.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <select name="category" class="form-control">
+                    <option value='none'>Select a region...</option>
+
+                    {% for region in regions %}
+                    <option value='{{region.id}}'>{{region.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <select name="category" class="form-control">
+                    <option value='none'>Select a location...</option>
+
+                    {% for location in location %}
+                    <option value='{{location.id}}'>{{location.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <select name="category" class="form-control">
+                    <option value='none'>Select a Currency...</option>
+
+                    {% for currency in currency %}
+                    <option value='{{currency.id}}'>{{currency.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-4">
+                <input type="number" class="form-control" placeholder="Property price">
+            </div>
+            <div class="col-4">
+                <select name="category" class="form-control">
+                    <option value='none'>Select a status...</option>
+
+                    {% for property in property %}
+                    <option value='{{property.status.id}}'>{{property.status.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <input type="text" name="address" class="form-control" id="address"
+                    placeholder="Address">
+            </div>
+            <div class="col-4">
+                <input type="number" class="form-control" placeholder="Latitude">
+            </div>
+            <div class="col-4">
+                <input type="number" class="form-control" placeholder="Longitude">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-9">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" rows="6"></textarea>
+            </div>
+            <div class="form-group col-3">
+                <label>Upload image</label>
+                <input required name="image" type="file" class="form-control-file">
+            </div>
+        </div>
+        <button type='submit' class="btn btn-primary m-3">Submit</button>
+    </form>
+</div>
+
+{% endblock%}
