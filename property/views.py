@@ -33,6 +33,7 @@ def home(request):
     }
     return render(request, 'property/index.html', context=context)
 
+
 @unauthenticated_user
 def loginuser(request):
     if request.method == 'POST':
@@ -46,44 +47,57 @@ def loginuser(request):
             return redirect('administrator')
         else:
             messages.info(request, "Username or Password is incorrect")
-            
+
     context = {}
-    return render (request, 'property/login.html', context=context)
+    return render(request, 'property/login.html', context=context)
+
 
 @login_required
 def logoutuser(request):
     logout(request)
-    return render(request,'property/index.html',context=context)
+    return render(request, 'property/index.html', context=context)
+
 
 @login_required
 def administrator(request):
-    property_type = Propertytype.objects.all()
-    regions = Region.objects.all()
-    location = Location.objects.all()
-    currency = Currency.objects.all()
-    property = Property.objects.all()
+    if request.method == 'POST':
+        form = PropertyForm(request.POST)
+        if form.is_valid():
+            property = form.save()
+            print(property)
+            Property.objects.create(property=property)
 
+            return redirect('admin-images')
 
+    form = PropertyForm()
     context = {
-        'property_type':property_type,
-        'regions':regions,
-        'location':location,
-        'currency':currency,
-        'property':property,
+        'form': form
     }
 
-    return render(request,'property/admin.html',context=context)
+    return render(request, 'property/admin.html', context=context)
+
 
 @login_required
 def admin_property_type(request):
-    context={}
 
-    return render(request,'property/admin-propertytype.html', context=context)
+    if request.method == 'POST':
+        property_type = request.POST.get('propertytype')
+
+        Propertytype.objects.create(
+            name=property_type
+        )
+
+        return redirect('administrator')
+
+    context = {}
+
+    return render(request, 'property/admin-propertytype.html', context=context)
+
 
 @login_required
 def admin_images(request):
-   
-    property=Property.objects.all()
+
+    property = Property.objects.all()
 
     if request.method == 'POST':
         data = request.POST
@@ -99,9 +113,10 @@ def admin_images(request):
             )
             return redirect('home')
 
-    context={'property':property}
+    context = {'property': property}
 
-    return render(request,'property/admin-images.html', context=context)
+    return render(request, 'property/admin-images.html', context=context)
+
 
 @login_required
 def admin_currency(request):
@@ -113,9 +128,10 @@ def admin_currency(request):
         )
         return redirect('administrator')
 
-    context={}
+    context = {}
 
-    return render(request,'property/admin-currency.html', context=context)
+    return render(request, 'property/admin-currency.html', context=context)
+
 
 @login_required
 def admin_region(request):
@@ -126,13 +142,14 @@ def admin_region(request):
             name=region
         )
         return redirect('administrator')
-    context={}
+    context = {}
 
-    return render(request,'property/admin-region.html',context=context)
+    return render(request, 'property/admin-region.html', context=context)
+
 
 @login_required
 def admin_location(request):
-    
+
     region = Region.objects.all()
 
     if request.method == 'POST':
@@ -146,12 +163,13 @@ def admin_location(request):
                 region=region
             )
             return redirect('administrator')
-        
-    context={
+
+    context = {
         'region': region,
     }
 
-    return render(request,'property/admin-location.html',context=context)
+    return render(request, 'property/admin-location.html', context=context)
+
 
 def propertylist(request):
 
@@ -228,7 +246,7 @@ def contactus(request):
         email = request.POST.get('email')
         msg = request.POST.get('message')
 
-        print(name,email,msg)
+        print(name, email, msg)
 
         from_email = email
         recipient_list = 'emmaculatewkamau@gmail.com'
@@ -243,5 +261,5 @@ def contactus(request):
             return HttpResponse('Invalid header found.')
         return redirect('home')
 
-    context={}
+    context = {}
     return render(request, 'property/contactus.html', context=context)

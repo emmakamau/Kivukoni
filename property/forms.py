@@ -1,27 +1,69 @@
 from django.forms import ModelForm
 from django import forms
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.forms import fields, widgets
 from .models import *
 
-class PropertyForm(ModelForm):
+class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ['region','location','address','currency','price',
-        'title','description','status']
+        fields = ['propertytype','image','region','location','address','currency',
+        'price','title','description','status','latitude','longitude']
 
-'''
-properttype = models.ForeignKey('Propertytype',on_delete=models.SET_NULL, null=True)
-    image = models.ImageField(blank=False,null=False,upload_to='media')
-    region = models.ForeignKey('Region',on_delete=models.SET_NULL, null=True)
-    location = models.ForeignKey('Location',on_delete=models.SET_NULL, null=True)
-    address = models.CharField(max_length=200, null=True)
-    currency = models.ForeignKey('Currency',on_delete=models.SET_NULL, null=True)
-    price = models.DecimalField(max_digits=9, decimal_places=2)
-    title = models.CharField(max_length=510)
-    description = models.TextField(max_length=10000)
-    uploaddate = models.DateField(auto_now_add=True)
-    status = models.CharField(max_length=50, null=True, choices=STATUS)
-    latitude = models.FloatField(default=0)
-    longitude = models.FloatField(default=0)
-'''
+        widgets={
+            'propertytype':widgets.Select(attrs={
+                'class':'form-control',
+                'placeholder':'Select a property type...',
+                'id':'propertytype'
+            }),
+            'region':widgets.Select(attrs={
+                'class':'form-control',
+                'placeholder':'Select a region...',
+                'id':'region'
+            }),
+            'location':widgets.Select(attrs={
+                'class':'form-control',
+                'placeholder':'Select a location...',
+                'id':'location'
+            }),
+            'address':widgets.Input(attrs={
+                'class':'form-control',
+                'placeholder':'Enter a detailed address...',
+                'id':'address'
+            }),
+            'currency':widgets.Select(attrs={
+                'class':'form-control',
+                'placeholder':'Select type of currency...',
+                'id':'currency'
+            }),
+            'price':widgets.NumberInput(attrs={
+                'class':'form-control',
+                'placeholder':'Price',
+                'id':'price'
+            }),
+            'title':widgets.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Property Title e.g Spacious one bedroom apartment near UoN.',
+                'id':'title'
+            }),
+            'description':widgets.Textarea(attrs={
+                'class':'form-control',
+                'placeholder':'Enter a description...',
+                'rows':'8',
+                'id':'description'
+            }),
+            'status':widgets.RadioSelect(attrs={
+                'class':'form-control',
+                'id':'status'
+            }),
+            'longitude':widgets.NumberInput(attrs={
+                'class':'form-control',
+                'placeholder':'Enter property Longitude',
+                'id':'longitude'
+            }),
+            'latitude':widgets.NumberInput(attrs={
+                'class':'form-control',
+                'placeholder':'Enter property Latitude',
+                'id':'latitude'
+            })
+        }
+

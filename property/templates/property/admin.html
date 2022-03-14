@@ -6,82 +6,63 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-12">
-                <input type="text" name="property-title" class="form-control property-title" id="property-title"
-                    placeholder="Property title">
+                {{ form.title }}
             </div>
         </div>
         <div class="row">
             <div class="col-4">
-                <select name="category" class="form-control">
-                    <option value='none'>Select a property type...</option>
-
-                    {% for property_type in property_type %}
-                    <option value='{{property_type.id}}'>{{property_type.name}}</option>
-                    {% endfor %}
-                </select>
+                <label>Property Type</label>
+                {{ form.propertytype }}
             </div>
             <div class="col-4">
-                <select name="category" class="form-control">
-                    <option value='none'>Select a region...</option>
-
-                    {% for region in regions %}
-                    <option value='{{region.id}}'>{{region.name}}</option>
-                    {% endfor %}
-                </select>
+                <label>Region</label>
+                {{ form.region }}
             </div>
             <div class="col-4">
-                <select name="category" class="form-control">
-                    <option value='none'>Select a location...</option>
-
-                    {% for location in location %}
-                    <option value='{{location.id}}'>{{location.name}}</option>
-                    {% endfor %}
-                </select>
+                <label>Location</label>
+                {{ form.location }}
             </div>
         </div>
         <div class="row">
             <div class="col-4">
-                <select name="category" class="form-control">
-                    <option value='none'>Select a Currency...</option>
-
-                    {% for currency in currency %}
-                    <option value='{{currency.id}}'>{{currency.name}}</option>
-                    {% endfor %}
-                </select>
+                <label>Currency</label>
+                {{ form.currency }}
             </div>
             <div class="col-4">
-                <input type="number" class="form-control" placeholder="Property price">
+                <label>Price</label>
+                {{ form.price }}
             </div>
             <div class="col-4">
-                <select name="category" class="form-control">
-                    <option value='none'>Select a status...</option>
-
-                    {% for property in property %}
-                    <option value='{{property.status.id}}'>{{property.status.name}}</option>
+                    {% for radio in form.status %}
+                    <li name="status" style="display: inline-block;">
+                        {{radio}}
+                    </li>
                     {% endfor %}
                 </select>
             </div>
         </div>
         <div class="row">
             <div class="col-4">
-                <input type="text" name="address" class="form-control" id="address"
-                    placeholder="Address">
+                <label>Address</label>
+                {{ form.address }}
             </div>
             <div class="col-4">
-                <input type="number" class="form-control" placeholder="Latitude">
+                <label for="">Latitude</label>
+                {{ form.latitude }}
             </div>
             <div class="col-4">
-                <input type="number" class="form-control" placeholder="Longitude">
+               <label for="">Longitude</label>
+               {{ form.longitude }}
             </div>
         </div>
         <div class="row">
             <div class="form-group col-9">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="6"></textarea>
+                {{ form.description }}
             </div>
             <div class="form-group col-3">
                 <label>Upload image</label>
-                <input required name="image" type="file" class="form-control-file">
+                {{ form.image }}
             </div>
         </div>
         <button type='submit' class="btn btn-primary m-3">Submit</button>

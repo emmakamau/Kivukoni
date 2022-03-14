@@ -5,8 +5,11 @@
     <div class="col-3"></div>
     <div class="col-6">
         <h2>Property Type</h2>
-        <input type="text" class="form-control" placeholder="Name e.g apartment">
-        <button type='submit' class="btn btn-primary m-3">Submit</button>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="propertytype" class="form-control" placeholder="Name e.g Apartment">
+            <button type='submit' class="btn btn-primary m-3">Submit</button>
+        </form>
     </div>
     <div class="col-3"></div>
 </div>
